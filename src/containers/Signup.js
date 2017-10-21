@@ -143,8 +143,6 @@ export default class Signup extends Component {
           <HelpBlock>Please check your email for the code.</HelpBlock>
         </FormGroup>
         <LoaderButton
-          block
-          bsSize="large"
           disabled={!this.validateConfirmationForm()}
           type="submit"
           isLoading={this.state.isLoading}
@@ -184,8 +182,6 @@ export default class Signup extends Component {
           />
         </FormGroup>
         <LoaderButton
-          block
-          bsSize="large"
           disabled={!this.validateForm()}
           type="submit"
           isLoading={this.state.isLoading}

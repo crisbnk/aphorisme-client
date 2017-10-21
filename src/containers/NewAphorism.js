@@ -117,9 +117,6 @@ export default class NewAphorism extends Component {
           </FormGroup>
 
           <LoaderButton
-            block
-            bsStyle="primary"
-            bsSize="large"
             disabled={!this.validateForm()}
             type="submit"
             isLoading={this.state.isLoading}

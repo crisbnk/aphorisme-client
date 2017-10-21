@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { invokeApig, s3Upload } from "../libs/awsLib"; // TODO - Add s3Delete
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap"; // TODO - remove Bootstrap
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Form } from 'semantic-ui-react'
 import { tagOptions } from '../handlers'
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
@@ -144,24 +143,22 @@ export default class Aphorisms extends Component {
     return (
       <div className="Aphorisms">
         {this.state.aphorism &&
-          <form onSubmit={this.handleSubmit}>
-            <FormGroup controlId="quote">
-              <ControlLabel>Quote</ControlLabel>
-              <FormControl
+          <form onSubmit={this.handleSubmit} className="ui form">
+            <Form.Group>
+              <Form.TextArea
+                label="Quote"
                 onChange={this.handleChange}
                 value={this.state.quote}
-                componentClass="textarea"
               />
-            </FormGroup>
-            <FormGroup controlId="author">
-              <ControlLabel>Author</ControlLabel>
-              <FormControl
+            </Form.Group>
+            <Form.Group>
+              <Form.Input
+                label="Author"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.author}
-                componentClass="input"
               />
-            </FormGroup>
+            </Form.Group>
             <Dropdown
               placeholder='Select your tag'
               options={tagOptions}
@@ -170,9 +167,10 @@ export default class Aphorisms extends Component {
               fluid multiple selection
             />
             {this.state.aphorism.attachment &&
-              <FormGroup>
-                <ControlLabel>Attachment</ControlLabel>
-                <FormControl.Static>
+              <Form.Group>
+                <Form.Field
+                  label="Attachment"
+                >
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -180,17 +178,16 @@ export default class Aphorisms extends Component {
                   >
                     {this.formatFilename(this.state.aphorism.attachment)}
                   </a>
-                </FormControl.Static>
-              </FormGroup>}
-            <FormGroup controlId="file">
-              {!this.state.aphorism.attachment &&
-                <ControlLabel>Attachment</ControlLabel>}
-              <FormControl onChange={this.handleFileChange} type="file" />
-            </FormGroup>
+                </Form.Field>
+              </Form.Group>}
+            <Form.Group>
+              <Form.Input
+                label="Attachment"
+                onChange={this.handleFileChange}
+                type="file"
+              />
+            </Form.Group>
             <LoaderButton
-              block
-              bsStyle="primary"
-              bsSize="large"
               disabled={!this.validateForm()}
               type="submit"
               isLoading={this.state.isLoading}
@@ -198,9 +195,6 @@ export default class Aphorisms extends Component {
               loadingText="Saving…"
             />
             <LoaderButton
-              block
-              bsStyle="danger"
-              bsSize="large"
               isLoading={this.state.isDeleting}
               onClick={this.handleDelete}
               text="Delete"

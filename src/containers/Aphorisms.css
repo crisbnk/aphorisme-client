@@ -1,0 +1,8 @@
+.Aphorisms form {
+  padding-bottom: 15px;
+}
+
+.Aphorisms form textarea {
+  height: 300px;
+  font-size: 24px;
+}

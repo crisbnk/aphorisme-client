@@ -11,6 +11,8 @@ export default ({
   ...props
 }) =>
   <Button
+    size="large"
+    fluid
     className={`LoaderButton ${className}`}
     disabled={disabled || isLoading}
     {...props}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Message, Form } from 'semantic-ui-react';
+import { Grid, Message, Form, Segment, Input } from 'semantic-ui-react';
 import LoaderButton from "../components/LoaderButton";
 import "./Signup.css";
 import {
@@ -153,43 +153,53 @@ export default class Signup extends Component {
 
   renderForm() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group>
-          <Form.Input
-            id="email"
-            label="Email"
-            autoFocus
-            type="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Input
-            id="password"
-            label="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            type="password"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Input
-            id="confirmPassword"
-            label="Confirm Password"
-            value={this.state.confirmPassword}
-            onChange={this.handleChange}
-            type="password"
-          />
-        </Form.Group>
-        <LoaderButton
-          disabled={!this.validateForm()}
-          type="submit"
-          isLoading={this.state.isLoading}
-          text="Signup"
-          loadingText="Signing up…"
-        />
-      </Form>
+      <Grid textAlign='center' verticalAlign='middle'>
+        <Form size="large" onSubmit={this.handleSubmit}>
+          <Segment stacked>
+            <Form.Field>
+              <Input
+                id="email"
+                placeholder="Email address"
+                focus
+                type="email"
+                icon='users'
+                iconPosition='left'
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Input
+                id="password"
+                placeholder="Password"
+                type="password"
+                icon='lock'
+                iconPosition='left'
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Input
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                type="password"
+                icon='lock'
+                iconPosition='left'
+                value={this.state.confirmPassword}
+                onChange={this.handleChange}
+              />
+            </Form.Field>
+            <LoaderButton
+              disabled={!this.validateForm()}
+              type="submit"
+              isLoading={this.state.isLoading}
+              text="Signup"
+              loadingText="Signing up…"
+            />
+          </Segment>
+        </Form>
+      </Grid>
     );
   }
 

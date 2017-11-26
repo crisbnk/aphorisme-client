@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap"; // TODO - remove Bootstrap
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Form } from 'semantic-ui-react'
 import { tagOptions } from '../handlers'
 import LoaderButton from "../components/LoaderButton";
 import { invokeApig, s3Upload } from "../libs/awsLib";
@@ -83,26 +82,39 @@ export default class NewAphorism extends Component {
   render() {
     return (
       <div className="NewAphorism">
-        <form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
 
-          <FormGroup controlId="quote">
-            <ControlLabel>Quote</ControlLabel>
-            <FormControl
+          <Form.Group widths='equal'>
+            <Form.TextArea
+              id="quote"
+              label="Quote"
+              placeholder="This is my best quote..."
               onChange={this.handleChange}
               value={this.state.quote}
-              componentClass="textarea"
+              width={12}
             />
-          </FormGroup>
 
-          <FormGroup controlId="author">
-            <ControlLabel>Author</ControlLabel>
-            <FormControl
-              type="text"
-              onChange={this.handleChange}
-              value={this.state.author}
-              componentClass="input"
-            />
-          </FormGroup>
+            <Form.Group>
+
+              <Form.Input
+                id="author"
+                label="Author"
+                placeholder="Author"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.author}
+              />
+
+
+              <Form.Input
+                id="attachment"
+                label="Attachment"
+                placeholder="Attachment"
+                onChange={this.handleFileChange}
+                type="file"
+              />
+            </Form.Group>
+          </Form.Group>
 
           <Dropdown
             placeholder='Select your tag'
@@ -110,11 +122,6 @@ export default class NewAphorism extends Component {
             onChange={this.handleTags}
             fluid multiple selection
           />
-
-          <FormGroup controlId="file">
-            <ControlLabel>Attachment</ControlLabel>
-            <FormControl onChange={this.handleFileChange} type="file" />
-          </FormGroup>
 
           <LoaderButton
             disabled={!this.validateForm()}
@@ -124,7 +131,7 @@ export default class NewAphorism extends Component {
             loadingText="Creating…"
           />
 
-        </form>
+        </Form>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Form } from 'semantic-ui-react';
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import {
@@ -64,24 +64,26 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Input
+              id="email"
+              label="Email"
               autoFocus
               type="email"
               value={this.state.email}
               onChange={this.handleChange}
             />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
+          </Form.Group>
+          <Form.Group>
+            <Form.Input
+              id="password"
+              label="Password"
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
             />
-          </FormGroup>
+          </Form.Group>
           <LoaderButton
             disabled={!this.validateForm()}
             type="submit"
@@ -89,7 +91,7 @@ export default class Login extends Component {
             text="Login"
             loadingText="Logging in…"
           />
-        </form>
+        </Form>
       </div>
     );
   }

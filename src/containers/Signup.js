@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  HelpBlock,
-  FormGroup,
-  FormControl,
-  ControlLabel
-} from "react-bootstrap";
+import { Message, Form } from 'semantic-ui-react';
 import LoaderButton from "../components/LoaderButton";
 import "./Signup.css";
 import {
@@ -131,17 +126,20 @@ export default class Signup extends Component {
 
   renderConfirmationForm() {
     return (
-      <form onSubmit={this.handleConfirmationSubmit}>
-        <FormGroup controlId="confirmationCode" bsSize="large">
-          <ControlLabel>Confirmation Code</ControlLabel>
-          <FormControl
+      <Form onSubmit={this.handleConfirmationSubmit}>
+        <Form.Group>
+          <Form.Input
+            id="confirmationCode"
+            label="Confirmation Code"
             autoFocus
             type="tel"
             value={this.state.confirmationCode}
             onChange={this.handleChange}
           />
-          <HelpBlock>Please check your email for the code.</HelpBlock>
-        </FormGroup>
+          <Message info>
+            <p>Please check your email for the code.</p>
+          </Message>
+        </Form.Group>
         <LoaderButton
           disabled={!this.validateConfirmationForm()}
           type="submit"
@@ -149,38 +147,41 @@ export default class Signup extends Component {
           text="Verify"
           loadingText="Verifying…"
         />
-      </form>
+      </Form>
     );
   }
 
   renderForm() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group>
+          <Form.Input
+            id="email"
+            label="Email"
             autoFocus
             type="email"
             value={this.state.email}
             onChange={this.handleChange}
           />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl
+        </Form.Group>
+        <Form.Group>
+          <Form.Input
+            id="password"
+            label="Password"
             value={this.state.password}
             onChange={this.handleChange}
             type="password"
           />
-        </FormGroup>
-        <FormGroup controlId="confirmPassword" bsSize="large">
-          <ControlLabel>Confirm Password</ControlLabel>
-          <FormControl
+        </Form.Group>
+        <Form.Group>
+          <Form.Input
+            id="confirmPassword"
+            label="Confirm Password"
             value={this.state.confirmPassword}
             onChange={this.handleChange}
             type="password"
           />
-        </FormGroup>
+        </Form.Group>
         <LoaderButton
           disabled={!this.validateForm()}
           type="submit"
@@ -188,7 +189,7 @@ export default class Signup extends Component {
           text="Signup"
           loadingText="Signing up…"
         />
-      </form>
+      </Form>
     );
   }
 

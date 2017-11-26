@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Nav, NavItem, Navbar } from "react-bootstrap";
+import { Menu } from 'semantic-ui-react';
 import { authUser, signOutUser } from "./libs/awsLib";
 import Routes from "./Routes";
 import RouteNavItem from "./components/RouteNavItem";
@@ -43,28 +43,25 @@ class App extends Component {
 
   renderNavbar() {
     return (
-      <Navbar fluid collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/admin">Scratch</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            {this.state.isAuthenticated
-              ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
-              : [
-                  <RouteNavItem key={1} href="/admin/signup">
-                    Signup
-                  </RouteNavItem>,
-                  <RouteNavItem key={2} href="/admin/login">
-                    Login
-                  </RouteNavItem>
-                ]}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <Menu>
+        <Menu.Item header>
+          <Link to="/admin">Aphoris.me</Link>
+        </Menu.Item>
+        <Menu.Menu position='right'>
+          {this.state.isAuthenticated
+            ? <Menu.Item onClick={this.handleLogout}>
+                Logout
+              </Menu.Item>
+            : [
+                <RouteNavItem key={1} href="/admin/signup">
+                  Signup
+                </RouteNavItem>,
+                <RouteNavItem key={2} href="/admin/login">
+                  Login
+                </RouteNavItem>
+              ]}
+        </Menu.Menu>
+      </Menu>
     )
   }
 

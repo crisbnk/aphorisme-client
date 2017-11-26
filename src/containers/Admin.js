@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Header, List } from 'semantic-ui-react';
 import { invokeApig } from '../libs/awsLib';
 import "./Admin.css";
 
@@ -39,15 +39,21 @@ export default class Admin extends Component {
     return [{}].concat(aphorisms).map(
       (aphorism, i) =>
         i !== 0
-          ? <ListGroupItem
+          ? <List.Item
               key={aphorism.aphorismId}
               href={`/admin/aphorisms/${aphorism.aphorismId}`}
               onClick={this.handleAphorismClick}
-              header={aphorism.quote.trim().split("\n")[0]}
             >
-              {"Created: " + new Date(aphorism.createdAt).toLocaleString()}
-            </ListGroupItem>
-          : <ListGroupItem
+              <List.Content>
+                <List.Header>
+                  {aphorism.quote.trim().split("\n")[0]}
+                </List.Header>
+                <List.Description>
+                  {"Created: " + new Date(aphorism.createdAt).toLocaleString()}
+                </List.Description>
+              </List.Content>
+            </List.Item>
+          : <List.Item
               key="new"
               href="/admin/aphorisms/new"
               onClick={this.handleAphorismClick}
@@ -55,7 +61,7 @@ export default class Admin extends Component {
               <h4>
                 <b>{"\uFF0B"}</b> Create a new aphorism
               </h4>
-            </ListGroupItem>
+            </List.Item>
     );
   }
 
@@ -84,10 +90,10 @@ export default class Admin extends Component {
   renderAphorisms() {
     return (
       <div className="aphorisms">
-        <PageHeader>Your Quotes</PageHeader>
-        <ListGroup>
+        <Header>Your Quotes</Header>
+        <List>
           {!this.state.isLoading && this.renderAphorismsList(this.state.aphorisms)}
-        </ListGroup>
+        </List>
       </div>
     );
   }

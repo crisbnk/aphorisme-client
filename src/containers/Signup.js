@@ -126,28 +126,31 @@ export default class Signup extends Component {
 
   renderConfirmationForm() {
     return (
-      <Form onSubmit={this.handleConfirmationSubmit}>
-        <Form.Group>
-          <Form.Input
-            id="confirmationCode"
-            label="Confirmation Code"
-            autoFocus
-            type="tel"
-            value={this.state.confirmationCode}
-            onChange={this.handleChange}
-          />
-          <Message info>
-            <p>Please check your email for the code.</p>
-          </Message>
-        </Form.Group>
-        <LoaderButton
-          disabled={!this.validateConfirmationForm()}
-          type="submit"
-          isLoading={this.state.isLoading}
-          text="Verify"
-          loadingText="Verifying…"
-        />
-      </Form>
+      <Grid textAlign='center' verticalAlign='middle'>
+        <Form size="large" onSubmit={this.handleConfirmationSubmit}>
+          <Segment stacked>
+            <Form.Field>
+              <Input
+                id="confirmationCode"
+                label="Confirmation Code"
+                type="tel"
+                value={this.state.confirmationCode}
+                onChange={this.handleChange}
+              />
+              <Message info>
+                <p>Please check your email for the code.</p>
+              </Message>
+            </Form.Field>
+            <LoaderButton
+              disabled={!this.validateConfirmationForm()}
+              type="submit"
+              isLoading={this.state.isLoading}
+              text="Verify"
+              loadingText="Verifying…"
+            />
+          </Segment>
+        </Form>
+      </Grid>
     );
   }
 
@@ -160,7 +163,6 @@ export default class Signup extends Component {
               <Input
                 id="email"
                 placeholder="Email address"
-                focus
                 type="email"
                 icon='users'
                 iconPosition='left'

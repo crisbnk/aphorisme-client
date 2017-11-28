@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Header, List } from 'semantic-ui-react';
+import { Header, List, Button } from 'semantic-ui-react';
 import { invokeApig } from '../libs/awsLib';
+import Login from './Login';
+import Signup from './Signup';
 import "./Admin.css";
 
 export default class Admin extends Component {
@@ -10,7 +12,8 @@ export default class Admin extends Component {
 
     this.state = {
       isLoading: true,
-      aphorisms: []
+      aphorisms: [],
+      lander: 'login'
     };
   }
 
@@ -70,18 +73,29 @@ export default class Admin extends Component {
     this.props.history.push(event.currentTarget.getAttribute("href"));
   }
 
+  renderLanderBtn = event => {
+    this.setState({
+      lander: event.target.id
+    });
+  }
+
   renderLander() {
     return (
       <div className="lander">
         <h1>Aphoris.me</h1>
         <p>A simple best quotes app</p>
         <div>
-          <Link to="/admin/login" className="btn btn-info btn-lg">
+          {/* <Link to="/admin/login" className="btn btn-info btn-lg">
             Login
           </Link>
           <Link to="/admin/signup" className="btn btn-success btn-lg">
             Signup
-          </Link>
+          </Link> */}
+          <Button.Group>
+            <Button id="login" onClick={this.renderLanderBtn}>Login</Button>
+            <Button id="signup" onClick={this.renderLanderBtn}>Signup</Button>
+          </Button.Group>
+          { this.state.lander === 'login'? <Login /> : <Signup /> }
         </div>
       </div>
     );

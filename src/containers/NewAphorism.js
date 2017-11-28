@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Dropdown, Form } from 'semantic-ui-react'
-import { tagOptions } from '../handlers'
+import { Dropdown, Form } from 'semantic-ui-react';
+import { tagOptions } from '../handlers';
 import LoaderButton from "../components/LoaderButton";
 import { invokeApig, s3Upload } from "../libs/awsLib";
 import config from "../config";

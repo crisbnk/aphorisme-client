@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from 'semantic-ui-react';
+import { Grid, Form, Segment, Input } from 'semantic-ui-react';
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import {
@@ -64,34 +64,41 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group>
-            <Form.Input
-              id="email"
-              label="Email"
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Input
-              id="password"
-              label="Password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </Form.Group>
-          <LoaderButton
-            disabled={!this.validateForm()}
-            type="submit"
-            isLoading={this.state.isLoading}
-            text="Login"
-            loadingText="Logging in…"
-          />
-        </Form>
+        <Grid textAlign='center' verticalAlign='middle'>
+          <Form size="large" onSubmit={this.handleSubmit}>
+            <Segment stacked>
+              <Form.Field>
+                <Input
+                  id="email"
+                  placeholder="Email address"
+                  type="email"
+                  icon='users'
+                  iconPosition='left'
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+              </Form.Field>
+              <Form.Field>
+                <Input
+                  id="password"
+                  placeholder="Password"
+                  type="password"
+                  icon='lock'
+                  iconPosition='left'
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </Form.Field>
+              <LoaderButton
+                disabled={!this.validateForm()}
+                type="submit"
+                isLoading={this.state.isLoading}
+                text="Login"
+                loadingText="Logging in…"
+              />
+            </Segment>
+          </Form>
+        </Grid>
       </div>
     );
   }

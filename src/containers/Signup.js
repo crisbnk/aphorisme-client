@@ -132,8 +132,10 @@ export default class Signup extends Component {
             <Form.Field>
               <Input
                 id="confirmationCode"
-                label="Confirmation Code"
+                placeholder="Confirmation Code"
                 type="tel"
+                icon='key'
+                iconPosition='left'
                 value={this.state.confirmationCode}
                 onChange={this.handleChange}
               />

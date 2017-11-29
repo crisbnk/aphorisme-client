@@ -80,6 +80,11 @@ export default class Admin extends Component {
   }
 
   renderLander() {
+    const childProps = {
+      isAuthenticated: this.props.isAuthenticated,
+      userHasAuthenticated: this.props.userHasAuthenticated
+    };
+
     return (
       <div className="lander">
         <h1>Aphoris.me</h1>
@@ -95,7 +100,17 @@ export default class Admin extends Component {
             <Button id="login" onClick={this.renderLanderBtn}>Login</Button>
             <Button id="signup" onClick={this.renderLanderBtn}>Signup</Button>
           </Button.Group>
-          { this.state.lander === 'login'? <Login /> : <Signup /> }
+          {
+            this.state.lander === 'login' ?
+            <Login
+              isAuthenticated={this.props.isAuthenticated}
+              userHasAuthenticated={this.props.userHasAuthenticated}
+            /> :
+            <Signup
+              isAuthenticated={this.props.isAuthenticated}
+              userHasAuthenticated={this.props.userHasAuthenticated}
+            />
+          }
         </div>
       </div>
     );

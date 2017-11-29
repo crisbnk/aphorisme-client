@@ -73,7 +73,7 @@ class App extends Component {
 
     return (
       <div className="App container">
-        {this.props.location.pathname !== '/' && this.renderNavbar()}
+        {/* {this.props.location.pathname !== '/' && this.renderNavbar()} */}
         <Routes childProps={childProps} />
       </div>
     );

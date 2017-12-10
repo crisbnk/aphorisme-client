@@ -1,7 +1,13 @@
 .App {
-  margin-top: 15px;
+  margin: 0;
 }
 
-.App .navbar-brand {
-  font-weight: bold;
+.App #navbar {
+  background-color: #aaa;
+}
+
+.App #footer  {
+  border: none;
+  border-radius: unset;
+  background-color: #aaa;
 }

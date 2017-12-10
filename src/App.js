@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Menu } from 'semantic-ui-react';
+import { Menu, Segment } from 'semantic-ui-react';
 import { authUser, signOutUser } from "./libs/awsLib";
 import Routes from "./Routes";
 import RouteNavItem from "./components/RouteNavItem";
@@ -43,7 +43,7 @@ class App extends Component {
 
   renderNavbar() {
     return (
-      <Menu>
+      <Menu secondary id="navbar">
         <Menu.Item header>
           <Link to="/admin">Aphoris.me</Link>
         </Menu.Item>
@@ -59,9 +59,18 @@ class App extends Component {
                 <RouteNavItem key={2} href="/admin/login">
                   Login
                 </RouteNavItem>
-              ]}
+              ]
+          }
         </Menu.Menu>
       </Menu>
+    )
+  }
+
+  renderFooter() {
+    return(
+      <Segment secondary id="footer">
+        Footer
+      </Segment>
     )
   }
 
@@ -74,8 +83,9 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App container">
-        {/* {this.props.location.pathname !== '/' && this.renderNavbar()} */}
+        {this.props.location.pathname !== '/' && this.renderNavbar()}
         <Routes childProps={childProps} />
+        {this.props.location.pathname !== '/' && this.renderFooter()}
       </div>
     );
   }

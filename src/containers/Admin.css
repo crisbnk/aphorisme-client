@@ -28,3 +28,9 @@
 .Admin .lander div a:first-child {
   margin-right: 20px;
 }
+
+.Admin .addApohorism {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

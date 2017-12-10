@@ -72,6 +72,7 @@ class App extends Component {
     };
 
     return (
+      !this.state.isAuthenticating &&
       <div className="App container">
         {/* {this.props.location.pathname !== '/' && this.renderNavbar()} */}
         <Routes childProps={childProps} />

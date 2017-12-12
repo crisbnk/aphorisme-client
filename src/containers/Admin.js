@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Header, List, Button, Card, Icon } from 'semantic-ui-react';
+import { Header, Container, List, Button, Card, Icon } from 'semantic-ui-react';
 import { invokeApig } from '../libs/awsLib';
 import Login from './Login';
 import Signup from './Signup';
@@ -119,9 +119,9 @@ export default class Admin extends Component {
 
   render() {
     return (
-      <div className="Admin">
+      <Container className="Admin main">
         {this.props.isAuthenticated ? this.renderAphorisms() : this.renderLander()}
-      </div>
+      </Container>
     );
   }
 }

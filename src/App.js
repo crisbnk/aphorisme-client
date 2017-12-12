@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Menu, Segment } from 'semantic-ui-react';
+import { Menu, Segment, Container } from 'semantic-ui-react';
 import { authUser, signOutUser } from "./libs/awsLib";
 import Routes from "./Routes";
 import RouteNavItem from "./components/RouteNavItem";
@@ -43,7 +43,7 @@ class App extends Component {
 
   renderNavbar() {
     return (
-      <Menu secondary id="navbar">
+      <Menu secondary fixed="top" id="navbar">
         <Menu.Item header>
           <Link to="/admin">Aphoris.me</Link>
         </Menu.Item>
@@ -68,8 +68,10 @@ class App extends Component {
 
   renderFooter() {
     return(
-      <Segment secondary id="footer">
-        Footer
+      <Segment secondary vertical id="footer">
+        <Container>
+          Footer
+        </Container>
       </Segment>
     )
   }

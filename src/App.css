@@ -2,6 +2,16 @@
   margin: 0;
 }
 
+.App.container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.App.container > * {
+  flex: 1;
+}
+
 .App #navbar {
   background-color: #aaa;
 }
@@ -10,4 +20,10 @@
   border: none;
   border-radius: unset;
   background-color: #aaa;
+}
+
+.App #footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

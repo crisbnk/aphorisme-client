@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dropdown, Form } from 'semantic-ui-react';
+import { Dropdown, Form, Container } from 'semantic-ui-react';
 import { tagOptions } from '../handlers';
 import LoaderButton from "../components/LoaderButton";
 import { invokeApig, s3Upload } from "../libs/awsLib";
@@ -81,7 +81,7 @@ export default class NewAphorism extends Component {
 
   render() {
     return (
-      <div className="NewAphorism">
+      <Container className="NewAphorism">
         <Form onSubmit={this.handleSubmit}>
 
           <Form.Group widths='equal'>
@@ -132,7 +132,7 @@ export default class NewAphorism extends Component {
           />
 
         </Form>
-      </div>
+      </Container>
     );
   }
 }

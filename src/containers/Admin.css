@@ -34,3 +34,7 @@
   justify-content: center;
   align-items: center;
 }
+
+.Admin.container.main {
+  margin-top: 7em;
+}

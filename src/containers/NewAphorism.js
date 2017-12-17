@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dropdown, Form, Container } from 'semantic-ui-react';
+import { Dropdown, Form, Container, Grid } from 'semantic-ui-react';
 import { tagOptions } from '../handlers';
 import LoaderButton from "../components/LoaderButton";
 import { invokeApig, s3Upload } from "../libs/awsLib";
@@ -83,20 +83,66 @@ export default class NewAphorism extends Component {
     return (
       <Container className="NewAphorism">
         <Form onSubmit={this.handleSubmit}>
-
-          <Form.Group widths='equal'>
-            <Form.TextArea
+          <Grid columns={2}>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.TextArea
+                  id="quote"
+                  label="Quote"
+                  placeholder="This is my best quote..."
+                  onChange={this.handleChange}
+                  value={this.state.quote}
+                  width={12}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Input
+                  id="author"
+                  label="Author"
+                  placeholder="Author"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.author}
+                />
+                <Form.Input
+                  id="attachment"
+                  label="Attachment"
+                  placeholder="Attachment"
+                  onChange={this.handleFileChange}
+                  type="file"
+                />
+                <label className="form-label">Tag</label>
+                <Dropdown
+                  placeholder='Select your tag'
+                  options={tagOptions}
+                  onChange={this.handleTags}
+                  fluid multiple selection
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <LoaderButton
+                disabled={!this.validateForm()}
+                type="submit"
+                isLoading={this.state.isLoading}
+                text="Create"
+                loadingText="Creating…"
+              />
+            </Grid.Row>
+          </Grid>
+          {/* <Form.Group widths='equal'> */}
+            {/* <Form.TextArea
               id="quote"
               label="Quote"
               placeholder="This is my best quote..."
               onChange={this.handleChange}
               value={this.state.quote}
               width={12}
-            />
+            /> */}
 
-            <Form.Group>
+            {/* <Form.Group> */}
 
-              <Form.Input
+              {/* <Form.Input
                 id="author"
                 label="Author"
                 placeholder="Author"
@@ -112,24 +158,24 @@ export default class NewAphorism extends Component {
                 placeholder="Attachment"
                 onChange={this.handleFileChange}
                 type="file"
-              />
-            </Form.Group>
-          </Form.Group>
+              /> */}
+            {/* </Form.Group> */}
+          {/* </Form.Group> */}
 
-          <Dropdown
+          {/* <Dropdown
             placeholder='Select your tag'
             options={tagOptions}
             onChange={this.handleTags}
             fluid multiple selection
-          />
+          /> */}
 
-          <LoaderButton
+          {/* <LoaderButton
             disabled={!this.validateForm()}
             type="submit"
             isLoading={this.state.isLoading}
             text="Create"
             loadingText="Creating…"
-          />
+          /> */}
 
         </Form>
       </Container>

@@ -1,3 +1,5 @@
+/* https://coolors.co/ebe9e9-f3f8f2-3581b8-fcb07e-dee2d6 */
+
 .App {
   margin: 0;
 }
@@ -6,6 +8,7 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-color: #dee2d6;
 }
 
 .App.container > * {
@@ -13,17 +16,11 @@
 }
 
 .App #navbar {
-  background-color: #aaa;
+  background-color: #dee2d6;
 }
 
 .App #footer  {
   border: none;
   border-radius: unset;
-  background-color: #aaa;
-}
-
-.App #footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  background-color: #dee2d6;
 }

@@ -55,7 +55,7 @@ export default class Admin extends Component {
                 <Card.Meta>
                   {"Created: " + new Date(aphorism.createdAt).toLocaleString()}
                 </Card.Meta>
-                <Card.Description>
+                <Card.Description className="aphorisms-content">
                   {aphorism.quote.trim().split("\n")[0]}
                 </Card.Description>
               </Card.Content>
@@ -110,7 +110,7 @@ export default class Admin extends Component {
     return (
       <div className="aphorisms">
         <Header>Your Quotes</Header>
-        <Card.Group>
+        <Card.Group className="aphorisms-list">
           {!this.state.isLoading && this.renderAphorismsList(this.state.aphorisms)}
         </Card.Group>
       </div>

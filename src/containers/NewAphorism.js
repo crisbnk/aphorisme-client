@@ -130,53 +130,6 @@ export default class NewAphorism extends Component {
               />
             </Grid.Row>
           </Grid>
-          {/* <Form.Group widths='equal'> */}
-            {/* <Form.TextArea
-              id="quote"
-              label="Quote"
-              placeholder="This is my best quote..."
-              onChange={this.handleChange}
-              value={this.state.quote}
-              width={12}
-            /> */}
-
-            {/* <Form.Group> */}
-
-              {/* <Form.Input
-                id="author"
-                label="Author"
-                placeholder="Author"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.author}
-              />
-
-
-              <Form.Input
-                id="attachment"
-                label="Attachment"
-                placeholder="Attachment"
-                onChange={this.handleFileChange}
-                type="file"
-              /> */}
-            {/* </Form.Group> */}
-          {/* </Form.Group> */}
-
-          {/* <Dropdown
-            placeholder='Select your tag'
-            options={tagOptions}
-            onChange={this.handleTags}
-            fluid multiple selection
-          /> */}
-
-          {/* <LoaderButton
-            disabled={!this.validateForm()}
-            type="submit"
-            isLoading={this.state.isLoading}
-            text="Create"
-            loadingText="Creating…"
-          /> */}
-
         </Form>
       </Container>
     );

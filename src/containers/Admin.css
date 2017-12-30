@@ -26,6 +26,15 @@
   align-content: center;
 }
 
+.Admin > .aphorisms > .aphorisms-list > div.card,
+.Admin > .aphorisms > .aphorisms-list > div.card > a {
+  border-radius: 10px;
+}
+
+.Admin > .aphorisms > .aphorisms-list > .card > a {
+  margin: 0;
+}
+
 a.card .content div.description.aphorisms-content {
   height: 6em;
   line-height: 2em;

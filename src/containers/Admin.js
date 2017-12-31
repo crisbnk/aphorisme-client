@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Header, Container, List, Button, Card, Icon, Dimmer, Segment, Image } from 'semantic-ui-react';
+import { Header, Container, Button, Card, Dimmer, Popup } from 'semantic-ui-react';
 import { invokeApig } from '../libs/awsLib';
-import Login from './Login';
-import Signup from './Signup';
 import "./Admin.css";
 
 export default class Admin extends Component {
@@ -14,7 +11,7 @@ export default class Admin extends Component {
       isLoading: true,
       aphorisms: [],
       lander: 'login',
-      dimmedIndex: 0
+      dimmedIndex: -1
     };
   }
 
@@ -28,6 +25,7 @@ export default class Admin extends Component {
       console.log('RESULTS');
       console.log(results);
       this.setState({ aphorisms: results });
+      // this.setState({ aphorisms: [] });
     } catch (e) {
       alert(e);
     }
@@ -40,92 +38,63 @@ export default class Admin extends Component {
   }
 
   renderAphorismsList(aphorisms) {
-    const dimmed = parseInt(this.state.dimmedIndex);
-    return [{}].concat(aphorisms).map(
-      (aphorism, i) =>
-        i !== 0
-          ?
-            // <Card
-            //   key={aphorism.aphorismId}
-            //   href={`/admin/aphorisms/${aphorism.aphorismId}`}
-            //   onClick={this.handleAphorismClick}
-            // >
-            //   <Card.Content>
-            //     <Card.Header>
-            //       {aphorism.author}
-            //     </Card.Header>
-            //     <Card.Meta>
-            //       {"Created: " + new Date(aphorism.createdAt).toLocaleString()}
-            //     </Card.Meta>
-            //     <Card.Description className="aphorisms-content">
-            //       {aphorism.quote.trim().split("\n")[0]}
-            //     </Card.Description>
-            //   </Card.Content>
-            // </Card>
-            <Dimmer.Dimmable
-              key={i}
-              data-index={i}
-              as={Card}
-              dimmed={i === dimmed}
-              onMouseEnter={this.handleDimmerShow}
-              onMouseLeave={this.handleDimmerHide}
-            >
-              <Dimmer active={i === dimmed} onClickOutside={this.handleHide}>
-                <Button
-                  primary
-                  onClick={this.handleAphorismClick}
-                  href={`/admin/aphorisms/${aphorism.aphorismId}`}
-                >
-                  Edit
-                </Button>
-                <Button
-                  href={`/admin/aphorisms/${aphorism.aphorismId}`}
-                  onClick={this.handleDelete}
-                >
-                  Delete
-                </Button>
-              </Dimmer>
-              <Card
-                key={aphorism.aphorismId}
-                href={`/admin/aphorisms/${aphorism.aphorismId}`}
-                onClick={this.handleAphorismClick}
-              >
-                <Card.Content>
-                  <Card.Header>
-                    {aphorism.author}
-                  </Card.Header>
-                  <Card.Meta>
-                    {"Created: " + new Date(aphorism.createdAt).toLocaleString()}
-                  </Card.Meta>
-                  <Card.Description className="aphorisms-content">
-                    {aphorism.quote.trim().split("\n")[0]}
-                  </Card.Description>
-                </Card.Content>
-              </Card>
-            </Dimmer.Dimmable>
-          :
-            <Card
-              key="new"
-              href="/admin/aphorisms/new"
+    const dimmed = parseInt(this.state.dimmedIndex, 10);
+    let renderedList = aphorisms.length === 0 ?
+      <div>
+        {this.renderCreateNewAphorism()}
+        <p>
+          Your aphorism list is empty!
+        </p>
+      </div> :
+      aphorisms.map((aphorism, i) =>
+        <Dimmer.Dimmable
+          key={i}
+          data-index={i}
+          as={Card}
+          dimmed={i === dimmed}
+          onMouseEnter={this.handleDimmerShow}
+          onMouseLeave={this.handleDimmerHide}
+        >
+          <Dimmer active={i === dimmed} onClickOutside={this.handleHide}>
+            <Button
+              primary
               onClick={this.handleAphorismClick}
+              href={`/admin/aphorisms/${aphorism.aphorismId}`}
             >
-              <Card.Content>
-                <Card.Header>
-                  Create a new aphorism
-                </Card.Header>
-                <Card.Content className="addApohorism">
-                  <Icon.Group size="huge">
-                    <Icon size='big' name='thin circle' />
-                    <Icon name='plus' />
-                  </Icon.Group>
-                </Card.Content>
-              </Card.Content>
-            </Card>
-    );
+              Edit
+            </Button>
+            <Button
+              href={`/admin/aphorisms/${aphorism.aphorismId}`}
+              onClick={this.handleDelete}
+            >
+              Delete
+            </Button>
+          </Dimmer>
+          <Card
+            key={aphorism.aphorismId}
+            href={`/admin/aphorisms/${aphorism.aphorismId}`}
+            onClick={this.handleAphorismClick}
+          >
+            <Card.Content>
+              <Card.Header>
+                {aphorism.author}
+              </Card.Header>
+              <Card.Meta>
+                {"Created: " + new Date(aphorism.createdAt).toLocaleString()}
+              </Card.Meta>
+              <Card.Description className="aphorisms-content">
+                {aphorism.quote.trim().split("\n")[0]}
+              </Card.Description>
+            </Card.Content>
+          </Card>
+        </Dimmer.Dimmable>
+      );
+
+    return renderedList;
   }
 
   handleDimmerShow = e => this.setState({ dimmedIndex: e.currentTarget.getAttribute('data-index') })
-  handleDimmerHide = e => this.setState({ dimmedIndex: 0 })
+  handleDimmerHide = e => this.setState({ dimmedIndex: -1 })
 
   handleAphorismClick = event => {
     event.preventDefault();
@@ -174,12 +143,29 @@ export default class Admin extends Component {
     });
   }
 
-  renderLander() {
-    const childProps = {
-      isAuthenticated: this.props.isAuthenticated,
-      userHasAuthenticated: this.props.userHasAuthenticated
-    };
+  renderCreateNewAphorism() {
+    const style = {
+      borderRadius: 0,
+      opacity: 0.7,
+      padding: '2em',
+    }
+    return (
+      <Popup
+        trigger={
+          <Button
+            icon='add'
+            href="/admin/aphorisms/new"
+            onClick={this.handleAphorismClick}
+          />
+        }
+        content='Create a new aphorism'
+        style={style}
+        inverted
+      />
+    )
+  }
 
+  renderLander() {
     return (
       <div className="lander">
         <h1>Aphoris.me</h1>
@@ -192,6 +178,7 @@ export default class Admin extends Component {
     return (
       <div className="aphorisms">
         <Header>Your Quotes</Header>
+        {this.state.aphorisms.length !== 0 && this.renderCreateNewAphorism()}
         <Card.Group className="aphorisms-list">
           {!this.state.isLoading && this.renderAphorismsList(this.state.aphorisms)}
         </Card.Group>

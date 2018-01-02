@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { invokeApig, s3Upload } from "../libs/awsLib"; // TODO - Add s3Delete
-import { Dropdown, Form } from 'semantic-ui-react'
-import { tagOptions } from '../handlers'
+import { Dropdown, Form, Container, Grid } from 'semantic-ui-react'
+import { tagOptions } from '../handlers';
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import "./Aphorisms.css";
@@ -141,67 +141,72 @@ export default class Aphorisms extends Component {
 
   render() {
     return (
-      <div className="Aphorisms">
-        {this.state.aphorism &&
-          <form onSubmit={this.handleSubmit} className="ui form">
-            <Form.Group>
-              <Form.TextArea
-                label="Quote"
-                onChange={this.handleChange}
-                value={this.state.quote}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Input
-                label="Author"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.author}
-              />
-            </Form.Group>
-            <Dropdown
-              placeholder='Select your tag'
-              options={tagOptions}
-              onChange={this.handleTags}
-              value={this.state.tags}
-              fluid multiple selection
-            />
-            {this.state.aphorism.attachment &&
-              <Form.Group>
-                <Form.Field
-                  label="Attachment"
-                >
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={this.state.aphorism.attachment}
-                  >
-                    {this.formatFilename(this.state.aphorism.attachment)}
-                  </a>
-                </Form.Field>
-              </Form.Group>}
-            <Form.Group>
-              <Form.Input
-                label="Attachment"
-                onChange={this.handleFileChange}
-                type="file"
-              />
-            </Form.Group>
-            <LoaderButton
-              disabled={!this.validateForm()}
-              type="submit"
-              isLoading={this.state.isLoading}
-              text="Save"
-              loadingText="Saving…"
-            />
-            <LoaderButton
-              isLoading={this.state.isDeleting}
-              onClick={this.handleDelete}
-              text="Delete"
-              loadingText="Deleting…"
-            />
-          </form>}
-      </div>
+      <Container className="Aphorisms">
+        {
+          this.state.aphorism &&
+          <Form onSubmit={this.handleSubmit} className="ui form">
+            <Grid columns={2}>
+              <Grid.Row>
+                <Grid.Column>
+                  <Form.TextArea
+                    label="Quote"
+                    onChange={this.handleChange}
+                    value={this.state.quote}
+                  />
+                </Grid.Column>
+                <Grid.Column>
+                  <Form.Input
+                    label="Author"
+                    type="text"
+                    onChange={this.handleChange}
+                    value={this.state.author}
+                  />
+                  <label className="form-label">Tag</label>
+                  <Dropdown
+                    placeholder='Select your tag'
+                    options={tagOptions}
+                    onChange={this.handleTags}
+                    value={this.state.tags}
+                    fluid multiple selection
+                  />
+                  {
+                    this.state.aphorism.attachment &&
+                    <Form.Field label="Attachment">
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={this.state.aphorism.attachment}
+                      >
+                        {this.formatFilename(this.state.aphorism.attachment)}
+                      </a>
+                    </Form.Field>
+                  }
+                  <Form.Input
+                    label="Attachment"
+                    onChange={this.handleFileChange}
+                    type="file"
+                  />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <LoaderButton
+                  disabled={!this.validateForm()}
+                  type="submit"
+                  isLoading={this.state.isLoading}
+                  text="Save"
+                  loadingText="Saving…"
+                />
+                <LoaderButton
+                  isLoading={this.state.isDeleting}
+                  onClick={this.handleDelete}
+                  text="Delete"
+                  loadingText="Deleting…"
+                />
+              </Grid.Row>
+            </Grid>
+          </Form>
+        }
+      </Container>
     );
   }
 }

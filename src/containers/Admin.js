@@ -1,5 +1,15 @@
 import React, { Component } from "react";
-import { Header, Container, Button, Card, Dimmer, Popup } from 'semantic-ui-react';
+import {
+  Header,
+  Container,
+  Button,
+  Card,
+  Dimmer,
+  Popup,
+  Segment,
+  Icon
+} from 'semantic-ui-react';
+import { tagOptions } from '../handlers'
 import { invokeApig } from '../libs/awsLib';
 import "./Admin.css";
 
@@ -41,7 +51,6 @@ export default class Admin extends Component {
     const dimmed = parseInt(this.state.dimmedIndex, 10);
     let renderedList = aphorisms.length === 0 ?
       <div>
-        {this.renderCreateNewAphorism()}
         <p>
           Your aphorism list is empty!
         </p>
@@ -51,6 +60,7 @@ export default class Admin extends Component {
           key={i}
           data-index={i}
           as={Card}
+          blurring
           dimmed={i === dimmed}
           onMouseEnter={this.handleDimmerShow}
           onMouseLeave={this.handleDimmerHide}
@@ -85,6 +95,14 @@ export default class Admin extends Component {
               <Card.Description className="aphorisms-content">
                 {aphorism.quote.trim().split("\n")[0]}
               </Card.Description>
+            </Card.Content>
+            <Card.Content
+              extra
+              textAlign="right"
+            >
+              <div>
+                {this.renderTags(aphorism.tags)}
+              </div>
             </Card.Content>
           </Card>
         </Dimmer.Dimmable>
@@ -143,6 +161,16 @@ export default class Admin extends Component {
     });
   }
 
+  renderTags(tags) {
+    const arrayTagOpt = tags.map((t, i) => {
+      const opt = tagOptions.filter(to => to.key === t);
+      return (
+        <Icon key={i} name={opt[0].icon} />
+      )
+    });
+    return arrayTagOpt;
+  }
+
   renderCreateNewAphorism() {
     const style = {
       borderRadius: 0,
@@ -152,11 +180,16 @@ export default class Admin extends Component {
     return (
       <Popup
         trigger={
-          <Button
-            icon='add'
-            href="/admin/aphorisms/new"
-            onClick={this.handleAphorismClick}
-          />
+          // <Button
+          //   icon='add'
+          //   href="/admin/aphorisms/new"
+          //   onClick={this.handleAphorismClick}
+          // />
+          // <Icon name='add' />
+          <Icon.Group size='large'>
+            <Icon name='write' />
+            <Icon corner name='add' />
+          </Icon.Group>
         }
         content='Create a new aphorism'
         style={style}
@@ -177,8 +210,12 @@ export default class Admin extends Component {
   renderAphorisms() {
     return (
       <div className="aphorisms">
-        <Header>Your Quotes</Header>
-        {this.state.aphorisms.length !== 0 && this.renderCreateNewAphorism()}
+        <Segment clearing>
+          <Header as='h2' floated='left'>Your Quotes</Header>
+          <Header floated='right'>
+            {this.renderCreateNewAphorism()}
+          </Header>
+        </Segment>
         <Card.Group className="aphorisms-list">
           {!this.state.isLoading && this.renderAphorismsList(this.state.aphorisms)}
         </Card.Group>

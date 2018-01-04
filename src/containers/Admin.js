@@ -180,16 +180,15 @@ export default class Admin extends Component {
     return (
       <Popup
         trigger={
-          // <Button
-          //   icon='add'
-          //   href="/admin/aphorisms/new"
-          //   onClick={this.handleAphorismClick}
-          // />
-          // <Icon name='add' />
-          <Icon.Group size='large'>
-            <Icon name='write' />
-            <Icon corner name='add' />
-          </Icon.Group>
+          <Button
+            href="/admin/aphorisms/new"
+            onClick={this.handleAphorismClick}
+          >
+            <Icon.Group size='large'>
+                <Icon name='write' />
+                <Icon corner name='add' />
+              </Icon.Group>
+          </Button>
         }
         content='Create a new aphorism'
         style={style}

@@ -8,3 +8,8 @@ exports.tagOptions = [
   { key: 'work', value: 'work', text: 'Work', icon: 'laptop', },
   { key: 'motivation', value: 'motivation', text: 'Motivation', icon: 'sun', }
 ];
+
+exports.langOptions = [
+  { key: 'en', value: 'english', text: 'English' },
+  { key: 'it', value: 'italian', text: 'Italian' }
+];

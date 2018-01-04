@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown, Form, Container, Grid } from 'semantic-ui-react';
-import { tagOptions } from '../handlers';
+import { tagOptions, langOptions } from '../handlers';
 import LoaderButton from "../components/LoaderButton";
 import { invokeApig, s3Upload } from "../libs/awsLib";
 import config from "../config";
@@ -16,7 +16,8 @@ export default class NewAphorism extends Component {
       isLoading: null,
       quote: "",
       author: "",
-      tags: []
+      tags: [],
+      lang: []
     };
   }
 
@@ -71,6 +72,10 @@ export default class NewAphorism extends Component {
     this.setState({ tags: value });
   }
 
+  handleLang = (e, { value }) => {
+    this.setState({ lang: value });
+  }
+
   createAphorism(aphorism) {
     return invokeApig({
       path: "/admin/aphorisms",
@@ -116,6 +121,13 @@ export default class NewAphorism extends Component {
                   placeholder='Select your tag'
                   options={tagOptions}
                   onChange={this.handleTags}
+                  fluid multiple selection
+                />
+                <label className="form-label">Languages</label>
+                <Dropdown
+                  placeholder='Select your language'
+                  options={langOptions}
+                  onChange={this.handleLang}
                   fluid multiple selection
                 />
               </Grid.Column>

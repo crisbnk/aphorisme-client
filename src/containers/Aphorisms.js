@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { invokeApig, s3Upload } from "../libs/awsLib"; // TODO - Add s3Delete
 import { Dropdown, Form, Container, Grid } from 'semantic-ui-react'
-import { tagOptions } from '../handlers';
+import { tagOptions, langOptions } from '../handlers';
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import "./Aphorisms.css";
@@ -18,7 +18,8 @@ export default class Aphorisms extends Component {
       aphorism: null,
       quote: "",
       author: "",
-      tags: []
+      tags: [],
+      lang: []
     };
   }
 
@@ -29,7 +30,8 @@ export default class Aphorisms extends Component {
         aphorism: results,
         quote: results.quote,
         author: results.author,
-        tags: results.tags
+        tags: results.tags,
+        lang: results.lang
       });
     } catch (e) {
       alert(e);
@@ -44,7 +46,8 @@ export default class Aphorisms extends Component {
     return (
       this.state.quote.length > 0 &&
       this.state.author.length > 0 &&
-      this.state.tags.length > 0
+      this.state.tags.length > 0 &&
+      this.state.lang.length > 0
     );
   }
 
@@ -96,6 +99,7 @@ export default class Aphorisms extends Component {
         quote: this.state.quote,
         author: this.state.author,
         tags: this.state.tags,
+        lang: this.state.lang,
         attachment: uploadedFilename || this.state.quote.attachment
       });
       this.props.history.push("/admin");
@@ -139,6 +143,10 @@ export default class Aphorisms extends Component {
     this.setState({ tags: value });
   }
 
+  handleLang = (e, { value }) => {
+    this.setState({ lang: value });
+  }
+
   render() {
     return (
       <Container className="Aphorisms">
@@ -167,6 +175,14 @@ export default class Aphorisms extends Component {
                     options={tagOptions}
                     onChange={this.handleTags}
                     value={this.state.tags}
+                    fluid multiple selection
+                  />
+                  <label className="form-label">Languages</label>
+                  <Dropdown
+                    placeholder='Select your language'
+                    options={langOptions}
+                    onChange={this.handleLang}
+                    value={this.state.lang}
                     fluid multiple selection
                   />
                   {

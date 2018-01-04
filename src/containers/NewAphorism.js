@@ -25,7 +25,8 @@ export default class NewAphorism extends Component {
     return (
       this.state.quote.length > 0 &&
       this.state.author.length > 0 &&
-      this.state.tags.length > 0
+      this.state.tags.length > 0 &&
+      this.state.lang.length > 0
     );
   }
 
@@ -59,6 +60,7 @@ export default class NewAphorism extends Component {
         quote: this.state.quote,
         author: this.state.author,
         tags: this.state.tags,
+        lang: this.state.lang,
         attachment: uploadedFilename
       });
       this.props.history.push("/admin");

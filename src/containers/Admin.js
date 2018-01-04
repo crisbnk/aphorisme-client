@@ -9,7 +9,7 @@ import {
   Segment,
   Icon
 } from 'semantic-ui-react';
-import { tagOptions } from '../handlers'
+import { tagOptions, langOptions } from '../handlers'
 import { invokeApig } from '../libs/awsLib';
 import "./Admin.css";
 
@@ -98,9 +98,12 @@ export default class Admin extends Component {
             </Card.Content>
             <Card.Content
               extra
-              textAlign="right"
+              className='card-content-extra'
             >
-              <div>
+              <div className='card-lang'>
+                {this.renderLang(aphorism.lang)}
+              </div>
+              <div className='card-tags'>
                 {this.renderTags(aphorism.tags)}
               </div>
             </Card.Content>
@@ -159,6 +162,12 @@ export default class Admin extends Component {
     this.setState({
       lander: event.target.id
     });
+  }
+
+  renderLang(lang) {
+    const langObj = langOptions.filter(lo => lo.value === lang[0]);
+    const renderLang = <span>{langObj[0].key.toUpperCase()}</span>
+    return renderLang;
   }
 
   renderTags(tags) {

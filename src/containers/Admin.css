@@ -65,3 +65,14 @@ a.card .content div.description.aphorisms-content {
   justify-content: center;
   align-items: center;
 }
+
+.card-content-extra {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-tags {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -192,6 +192,7 @@ export default class Admin extends Component {
           <Button
             href="/admin/aphorisms/new"
             onClick={this.handleAphorismClick}
+            className="create-aphorism"
           >
             <Icon.Group size='large'>
                 <Icon name='write' />

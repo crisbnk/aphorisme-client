@@ -76,3 +76,7 @@ a.card .content div.description.aphorisms-content {
   display: flex;
   justify-content: flex-end;
 }
+
+a.ui.button.create-aphorism {
+  background: none;
+}

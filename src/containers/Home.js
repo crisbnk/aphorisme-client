@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { invokeApigNotAuth } from '../libs/awsLib';
+import QuoteContainer from "../components/QuoteContainer";
 import "./Home.css";
 
 export default class Home extends Component {
@@ -55,6 +56,7 @@ export default class Home extends Component {
           {!this.state.isLoading && this.state.aphorisms[this.state.counter].quote}
         </h3>
         <p>{!this.state.isLoading && this.state.aphorisms[this.state.counter].aphorismId}</p>
+        <QuoteContainer />
       </div>
     );
   }

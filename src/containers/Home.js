@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { toJson } from "unsplash-js";
 import { invokeApigNotAuth } from '../libs/awsLib';
 import QuoteContainer from "../components/QuoteContainer";
+import config from "../config";
 import "./Home.css";
 
 export default class Home extends Component {
@@ -24,6 +26,13 @@ export default class Home extends Component {
     } catch (e) {
       alert(e);
     }
+
+    // TODO - UNSPLASH API to retrieve background images
+    // config.unsplash.photos.listPhotos(2, 15, "latest")
+    // .then(toJson)
+    // .then(json => {
+    //   console.log(json);
+    // });
 
     this.setState({ isLoading: false });
     this.setState({timer});
@@ -52,11 +61,11 @@ export default class Home extends Component {
   renderAphorisms() {
     return (
       <div className="aphorisms">
-        <h3>
+        {/* <h3>
           {!this.state.isLoading && this.state.aphorisms[this.state.counter].quote}
         </h3>
-        <p>{!this.state.isLoading && this.state.aphorisms[this.state.counter].aphorismId}</p>
-        <QuoteContainer />
+        <p>{!this.state.isLoading && this.state.aphorisms[this.state.counter].aphorismId}</p> */}
+        {!this.state.isLoading && <QuoteContainer aphorism={this.state.aphorisms[this.state.counter]} />}
       </div>
     );
   }

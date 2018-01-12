@@ -1,24 +1,11 @@
-import React, { Component } from "react";
-import { Dropdown, Form, Container, Grid } from 'semantic-ui-react'
+import React from "react";
+import { Container, Image } from 'semantic-ui-react';
+import config from "../config";
 import "./QuoteContainer.css";
 
-export default class QuoteContainer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
-  async componentDidMount() {
-
-  }
-
-  render() {
-    return (
-      <Container>
-        TEST
-      </Container>
-    );
-  }
-}
+export default ({...props}) =>
+  <Container>
+    <h3>{props.aphorism.quote}</h3>
+    <p>{props.aphorism.aphorismId}</p>
+    <Image src={config.urlImg} fluid />
+  </Container>;

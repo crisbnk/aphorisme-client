@@ -23,3 +23,6 @@ yarn-error.log*
 # Config file
 /src/config.js
 *.env
+
+# Api
+/src/fakeapi.json

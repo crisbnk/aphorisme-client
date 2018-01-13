@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { toJson } from "unsplash-js";
+import Unsplash, { toJson } from 'unsplash-js';
 import { invokeApigNotAuth } from '../libs/awsLib';
 import QuoteContainer from "../components/QuoteContainer";
 import config from "../config";
 import "./Home.css";
+
+const unsplash = new Unsplash(config.unsplash);
 
 export default class Home extends Component {
   constructor(props) {
@@ -28,7 +30,7 @@ export default class Home extends Component {
     }
 
     // TODO - UNSPLASH API to retrieve background images
-    // config.unsplash.photos.listPhotos(2, 15, "latest")
+    // unsplash.photos.listPhotos(2, 15, "latest")
     // .then(toJson)
     // .then(json => {
     //   console.log(json);

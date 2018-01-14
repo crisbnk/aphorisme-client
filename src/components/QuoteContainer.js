@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Image, Segment } from 'semantic-ui-react';
+import { Container, Segment } from 'semantic-ui-react';
 import config from "../config";
 import "./QuoteContainer.css";
 
@@ -11,14 +11,17 @@ const style = {
   padding: "10em",
   display: "flex",
   flexDirection: "row",
-  flexWrap: "wrap",
   justifyContent: "center"
 };
 
 export default ({...props}) =>
   <Container style={style}>
     <Segment className="quote-segment" raised>
-      <h3>{props.aphorism.quote}</h3>
-      <p>{props.aphorism.aphorismId}</p>
+      <div className="quote-text">
+        <h3 className="quote-text-title">{props.aphorism.quote}</h3>
+      </div>
+      <div className="quote-author">
+        <p className="quote-author-name">{props.aphorism.author}</p>
+      </div>
     </Segment>
   </Container>;

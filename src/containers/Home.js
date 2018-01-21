@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Menu } from 'semantic-ui-react';
 import Unsplash, { toJson } from 'unsplash-js';
 import { invokeApigNotAuth } from '../libs/awsLib';
+import { tagOptions } from '../handlers'
 import QuoteContainer from "../components/QuoteContainer";
 import config from "../config";
 import "./Home.css";
@@ -15,7 +17,8 @@ export default class Home extends Component {
       timer: null,
       counter: 0,
       isLoading: true,
-      aphorisms: []
+      aphorisms: [],
+      backgroundImages: []
     };
   }
 
@@ -24,7 +27,7 @@ export default class Home extends Component {
     try {
       const results = await this.aphorismsQuery();
       this.setState({ aphorisms: results });
-      timer = setInterval(this.tick.bind(this), 2000);
+      timer = setInterval(this.tick.bind(this), 5000);
     } catch (e) {
       alert(e);
     }
@@ -35,6 +38,20 @@ export default class Home extends Component {
     // .then(json => {
     //   console.log(json);
     // });
+    // unsplash.search.photos("travel", 3, 20)
+    // .then(toJson)
+    // .then(json => {
+    //   console.log(json);
+    // });
+    this.setState({
+      backgroundImages: [{
+        url: config.urlImg,
+        tag: tagOptions[1].value
+      }, {
+        url: config.urlImg_bis,
+        tag: tagOptions[2].value
+      }]
+    });
 
     this.setState({ isLoading: false });
     this.setState({timer});
@@ -67,7 +84,11 @@ export default class Home extends Component {
           {!this.state.isLoading && this.state.aphorisms[this.state.counter].quote}
         </h3>
         <p>{!this.state.isLoading && this.state.aphorisms[this.state.counter].aphorismId}</p> */}
-        {!this.state.isLoading && <QuoteContainer aphorism={this.state.aphorisms[this.state.counter]} />}
+        {!this.state.isLoading &&
+          <QuoteContainer
+            aphorism={this.state.aphorisms[this.state.counter]}
+            background={this.state.backgroundImages[this.state.counter]}
+          />}
       </div>
     );
   }
@@ -75,7 +96,6 @@ export default class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <h1>APHORIS.ME</h1>
         {this.renderAphorisms()}
       </div>
     );

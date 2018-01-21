@@ -6,6 +6,21 @@ import Routes from "./Routes";
 import RouteNavItem from "./components/RouteNavItem";
 import "./App.css";
 
+function navBarStyle(pathname) {
+  if(pathname === '/') {
+    return {
+      backgroundColor: "transparent"
+    };
+  }
+}
+
+function navBarLink(pathname) {
+  if(pathname === '/') {
+    return "/";
+  }
+  return "/admin";
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -41,27 +56,33 @@ class App extends Component {
     this.props.history.push("/admin/login");
   }
 
+  renderLogButtons() {
+    return(
+      <Menu.Menu position='right'>
+        {this.state.isAuthenticated
+          ? <Menu.Item onClick={this.handleLogout}>
+              Logout
+            </Menu.Item>
+          : [
+              <RouteNavItem key={1} href="/admin/signup">
+                Signup
+              </RouteNavItem>,
+              <RouteNavItem key={2} href="/admin/login">
+                Login
+              </RouteNavItem>
+            ]
+        }
+      </Menu.Menu>
+    )
+  }
+
   renderNavbar() {
     return (
-      <Menu secondary fixed="top" id="navbar">
+      <Menu secondary fixed="top" id="navbar" style={navBarStyle(this.props.location.pathname)}>
         <Menu.Item header>
-          <Link to="/admin">Aphoris.me</Link>
+          <Link to={navBarLink(this.props.location.pathname)}>Aphoris.me</Link>
         </Menu.Item>
-        <Menu.Menu position='right'>
-          {this.state.isAuthenticated
-            ? <Menu.Item onClick={this.handleLogout}>
-                Logout
-              </Menu.Item>
-            : [
-                <RouteNavItem key={1} href="/admin/signup">
-                  Signup
-                </RouteNavItem>,
-                <RouteNavItem key={2} href="/admin/login">
-                  Login
-                </RouteNavItem>
-              ]
-          }
-        </Menu.Menu>
+        {this.props.location.pathname !== '/' && this.renderLogButtons()}
       </Menu>
     )
   }
@@ -85,7 +106,7 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App container">
-        {this.props.location.pathname !== '/' && this.renderNavbar()}
+        {this.renderNavbar()}
         <Routes childProps={childProps} />
         {this.props.location.pathname !== '/' && this.renderFooter()}
       </div>

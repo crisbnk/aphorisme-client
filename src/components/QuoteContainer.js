@@ -3,19 +3,21 @@ import { Container, Segment } from 'semantic-ui-react';
 import config from "../config";
 import "./QuoteContainer.css";
 
-const style = {
-  height: "100vh",
-  width: "100%",
-  background: "url('" + config.urlImg + "') no-repeat center center fixed",
-  backgroundSize: "cover",
-  padding: "10em",
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "center"
+function createStyle(propsBackground) {
+  return {
+    height: "100vh",
+    width: "100%",
+    background: "url('" + propsBackground.url + "') no-repeat center center fixed",
+    backgroundSize: "cover",
+    padding: "10em",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center"
+  }
 };
 
 export default ({...props}) =>
-  <Container style={style}>
+  <Container style={createStyle(props.background)}>
     <Segment className="quote-segment" raised>
       <div className="quote-text">
         <h3 className="quote-text-title">{props.aphorism.quote}</h3>

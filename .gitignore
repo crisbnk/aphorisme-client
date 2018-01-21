@@ -25,4 +25,4 @@ yarn-error.log*
 *.env
 
 # Api
-/src/fakeapi.json
+/src/fakeapi.js

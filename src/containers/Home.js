@@ -15,7 +15,8 @@ export default class Home extends Component {
 
     this.state = {
       timer: null,
-      counter: 0,
+      aphorismCounter: 0,
+      imgCounter: 0,
       isLoading: true,
       aphorisms: [],
       backgroundImages: []
@@ -27,7 +28,7 @@ export default class Home extends Component {
     try {
       const results = await this.aphorismsQuery();
       this.setState({ aphorisms: results });
-      timer = setInterval(this.tick.bind(this), 5000);
+      timer = setInterval(this.tick.bind(this), 10000);
     } catch (e) {
       alert(e);
     }
@@ -63,8 +64,10 @@ export default class Home extends Component {
 
   tick() {
     this.setState({
-      counter: this.state.counter < this.state.aphorisms.length - 1 ?
-        this.state.counter + 1 : 0
+      aphorismCounter: this.state.aphorismCounter < this.state.aphorisms.length - 1 ?
+        this.state.aphorismCounter + 1 : 0,
+      imgCounter: this.state.imgCounter < this.state.backgroundImages.length - 1 ?
+        this.state.imgCounter + 1 : 0
     });
   }
 
@@ -86,8 +89,8 @@ export default class Home extends Component {
         <p>{!this.state.isLoading && this.state.aphorisms[this.state.counter].aphorismId}</p> */}
         {!this.state.isLoading &&
           <QuoteContainer
-            aphorism={this.state.aphorisms[this.state.counter]}
-            background={this.state.backgroundImages[this.state.counter]}
+            aphorism={this.state.aphorisms[this.state.aphorismCounter]}
+            background={this.state.backgroundImages[this.state.imgCounter]}
           />}
       </div>
     );

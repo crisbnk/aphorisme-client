@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Menu, Sidebar, Icon, Segment, Button } from 'semantic-ui-react';
 import Unsplash, { toJson } from 'unsplash-js';
 import { invokeApigNotAuth } from '../libs/awsLib';
-import { tagOptions } from '../handlers'
+import { tagOptions, langOptions } from '../handlers'
 import QuoteContainer from "../components/QuoteContainer";
 import config from "../config";
 import "./Home.css";
@@ -113,19 +113,18 @@ export default class Home extends Component {
             visible={sidebarVisible}
             icon='labeled'
             vertical
-            inverted
           >
-            <Menu.Item name='home'>
-              <Icon name='home' />
-              Home
+            <Menu.Item name='world'>
+              <Icon name='world' />
+              Language
             </Menu.Item>
-            <Menu.Item name='gamepad'>
-              <Icon name='gamepad' />
-              Games
+            <Menu.Item name='write'>
+              <Icon name='write' />
+              Author
             </Menu.Item>
-            <Menu.Item name='camera'>
-              <Icon name='camera' />
-              Channels
+            <Menu.Item name='tag'>
+              <Icon name='tag' />
+              Tags
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>

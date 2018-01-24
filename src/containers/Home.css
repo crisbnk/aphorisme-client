@@ -47,3 +47,7 @@ button.sidebar-show {
   right: 5%;
   background-color: transparent;
 }
+
+.Home > .segment.pushable > .sidebar.menu {
+  background-color: #F2994A;
+}

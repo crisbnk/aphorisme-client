@@ -32,3 +32,18 @@
 .Home .lander div a:first-child {
   margin-right: 20px;
 }
+
+.Home > .segment.pushable > .pusher > .segment.segment-quote-container {
+  margin: 0;
+  padding: 0;
+  border-radius: unset;
+  border: none;
+}
+
+.Home > .segment.pushable > .pusher > .segment.segment-quote-container >
+button.sidebar-show {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  background-color: transparent;
+}

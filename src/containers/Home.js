@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu } from 'semantic-ui-react';
+import { Menu, Sidebar, Icon, Segment, Button } from 'semantic-ui-react';
 import Unsplash, { toJson } from 'unsplash-js';
 import { invokeApigNotAuth } from '../libs/awsLib';
 import { tagOptions } from '../handlers'
@@ -19,7 +19,8 @@ export default class Home extends Component {
       imgCounter: 0,
       isLoading: true,
       aphorisms: [],
-      backgroundImages: []
+      backgroundImages: [],
+      sidebarVisible: false
     };
   }
 
@@ -96,10 +97,46 @@ export default class Home extends Component {
     );
   }
 
+  toggleVisibility = () => this.setState({ sidebarVisible: !this.state.sidebarVisible })
+
   render() {
+    const sidebarVisible = this.state.sidebarVisible
+    const arrowIcon = sidebarVisible ? 'arrow right' : 'arrow left'
     return (
       <div className="Home">
-        {this.renderAphorisms()}
+        <Sidebar.Pushable as={Segment}>
+          <Sidebar
+            as={Menu}
+            animation='push'
+            width='thin'
+            direction='right'
+            visible={sidebarVisible}
+            icon='labeled'
+            vertical
+            inverted
+          >
+            <Menu.Item name='home'>
+              <Icon name='home' />
+              Home
+            </Menu.Item>
+            <Menu.Item name='gamepad'>
+              <Icon name='gamepad' />
+              Games
+            </Menu.Item>
+            <Menu.Item name='camera'>
+              <Icon name='camera' />
+              Channels
+            </Menu.Item>
+          </Sidebar>
+          <Sidebar.Pusher>
+            <Segment className='segment-quote-container'>
+              {this.renderAphorisms()}
+              <Button className='sidebar-show' onClick={this.toggleVisibility}>
+                <Icon name={arrowIcon} size='large' />
+              </Button>
+            </Segment>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
       </div>
     );
   }

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Menu, Sidebar, Icon, Segment, Button } from 'semantic-ui-react';
+import { Button, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import Unsplash, { toJson } from 'unsplash-js';
 import { invokeApigNotAuth } from '../libs/awsLib';
 import { tagOptions, langOptions } from '../handlers'
 import QuoteContainer from "../components/QuoteContainer";
+import AphorismsList from "../components/AphorismsList";
 import config from "../config";
 import "./Home.css";
 
@@ -84,15 +85,17 @@ export default class Home extends Component {
   renderAphorisms() {
     return (
       <div className="aphorisms">
-        {/* <h3>
-          {!this.state.isLoading && this.state.aphorisms[this.state.counter].quote}
-        </h3>
-        <p>{!this.state.isLoading && this.state.aphorisms[this.state.counter].aphorismId}</p> */}
         {!this.state.isLoading &&
-          <QuoteContainer
-            aphorism={this.state.aphorisms[this.state.aphorismCounter]}
-            background={this.state.backgroundImages[this.state.imgCounter]}
-          />}
+          (
+            this.state.sidebarVisible ?
+            <AphorismsList aphorisms={this.state.aphorisms} />
+            :
+            <QuoteContainer
+              aphorism={this.state.aphorisms[this.state.aphorismCounter]}
+              background={this.state.backgroundImages[this.state.imgCounter]}
+            />
+          )
+        }
       </div>
     );
   }
@@ -100,8 +103,8 @@ export default class Home extends Component {
   toggleVisibility = () => this.setState({ sidebarVisible: !this.state.sidebarVisible })
 
   render() {
-    const sidebarVisible = this.state.sidebarVisible
-    const arrowRotate = sidebarVisible ? 'rotate' : ''
+    const sidebarVisible = this.state.sidebarVisible;
+    const arrowRotate = sidebarVisible ? 'rotate' : '';
     return (
       <div className="Home">
         <Sidebar.Pushable as={Segment}>

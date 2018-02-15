@@ -9,7 +9,7 @@ import {
   Segment,
   Icon
 } from 'semantic-ui-react';
-import { tagOptions, langOptions } from '../handlers'
+import { tagOptions, langOptions } from '../handlers';
 import { invokeApig } from '../libs/awsLib';
 import "./Admin.css";
 

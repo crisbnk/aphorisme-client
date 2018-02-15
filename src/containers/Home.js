@@ -101,7 +101,7 @@ export default class Home extends Component {
 
   render() {
     const sidebarVisible = this.state.sidebarVisible
-    const arrowIcon = sidebarVisible ? 'arrow right' : 'arrow left'
+    const arrowRotate = sidebarVisible ? 'rotate' : ''
     return (
       <div className="Home">
         <Sidebar.Pushable as={Segment}>
@@ -131,7 +131,7 @@ export default class Home extends Component {
             <Segment className='segment-quote-container'>
               {this.renderAphorisms()}
               <Button className='sidebar-show' onClick={this.toggleVisibility}>
-                <Icon name={arrowIcon} size='large' />
+                <Icon name='arrow left' className={arrowRotate} size='large' />
               </Button>
             </Segment>
           </Sidebar.Pusher>

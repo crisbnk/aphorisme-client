@@ -110,7 +110,7 @@ export default class Home extends Component {
         <Sidebar.Pushable as={Segment}>
           <Sidebar
             as={Menu}
-            animation='push'
+            animation='uncover'
             width='thin'
             direction='right'
             visible={sidebarVisible}

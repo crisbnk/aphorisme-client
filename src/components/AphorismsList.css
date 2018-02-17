@@ -15,3 +15,14 @@
   margin: 10px;
   background-color: rgba(235,235,235,0.70);
 }
+
+.card-content-extra {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-tags {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

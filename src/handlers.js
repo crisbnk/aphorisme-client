@@ -10,6 +10,6 @@ exports.tagOptions = [
 ];
 
 exports.langOptions = [
-  { key: 'en', value: 'english', text: 'English' },
-  { key: 'it', value: 'italian', text: 'Italian' }
+  { key: 'en', value: 'english', flag: 'gb', text: 'English' },
+  { key: 'it', value: 'italian', flag: 'it', text: 'Italian' }
 ];

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Button, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
+import {
+  Button,
+  Dropdown,
+  Icon,
+  Menu,
+  Segment,
+  Sidebar
+} from 'semantic-ui-react';
 import Unsplash, { toJson } from 'unsplash-js';
 import { invokeApigNotAuth } from '../libs/awsLib';
 import { tagOptions, langOptions } from '../handlers'
@@ -21,7 +28,9 @@ export default class Home extends Component {
       isLoading: true,
       aphorisms: [],
       backgroundImages: [],
-      sidebarVisible: false
+      sidebarVisible: false,
+      langDropDownValue: [],
+      tagDropDownValue: []
     };
   }
 
@@ -82,6 +91,7 @@ export default class Home extends Component {
     this.props.history.push(event.currentTarget.getAttribute("href"));
   }
 
+
   renderAphorisms() {
     return (
       <div className="aphorisms">
@@ -102,9 +112,17 @@ export default class Home extends Component {
 
   toggleVisibility = () => this.setState({ sidebarVisible: !this.state.sidebarVisible })
 
+  handleDropDownChange = (e, dropDownValue) => {
+    this.setState(
+      { [`${dropDownValue.name}DropDownValue`]: dropDownValue.value }
+    )
+  }
+
   render() {
-    const sidebarVisible = this.state.sidebarVisible;
-    const arrowRotate = sidebarVisible ? 'rotate' : '';
+    const sidebarVisible = this.state.sidebarVisible
+    const arrowRotate = sidebarVisible ? 'rotate' : ''
+    const dropDownValue = this.state.dropDownValue
+
     return (
       <div className="Home">
         <Sidebar.Pushable as={Segment}>
@@ -120,6 +138,16 @@ export default class Home extends Component {
             <Menu.Item name='world'>
               <Icon name='world' />
               Language
+              <Dropdown
+                name='lang'
+                onChange={this.handleDropDownChange}
+                placeholder='Language'
+                fluid
+                search
+                multiple
+                selection
+                options={langOptions}
+              />
             </Menu.Item>
             <Menu.Item name='write'>
               <Icon name='write' />
@@ -128,6 +156,16 @@ export default class Home extends Component {
             <Menu.Item name='tag'>
               <Icon name='tag' />
               Tags
+              <Dropdown
+                name='tag'
+                onChange={this.handleDropDownChange}
+                placeholder='Tags'
+                fluid
+                search
+                multiple
+                selection
+                options={tagOptions}
+              />
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>

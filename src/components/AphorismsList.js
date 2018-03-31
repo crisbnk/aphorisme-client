@@ -33,7 +33,10 @@ export default ({...props}) =>
             <Card.Content>
               {a.quote}
             </Card.Content>
-            <Card.Content extra>
+            <Card.Content
+              extra
+              className='card-content-extra'
+            >
               <div className="card-lang">
                 {renderLang(a.lang)}
               </div>

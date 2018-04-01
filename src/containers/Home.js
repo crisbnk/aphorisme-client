@@ -91,12 +91,30 @@ export default class Home extends Component {
     this.props.history.push(event.currentTarget.getAttribute("href"));
   }
 
+  filterList = (list, ...args) => {
+    let secondList = [...list];
+    const matchArray = args.filter(a => a.value.length);
+
+    matchArray.forEach(filterArg => {
+      secondList = secondList.filter(a => {
+        return filterArg.value.find(f => f === a[`${filterArg.name}`][0]);
+      });
+    });
+
+    return secondList;
+  }
 
   renderAphorisms() {
-    let aphorisms = this.state.aphorisms;
-    aphorisms = aphorisms.filter(a => !this.state.langDropDownValue.length ?
-      a :
-      this.state.langDropDownValue.find(l => l === a.lang[0])
+    const aphorisms = this.filterList(
+      this.state.aphorisms,
+      {
+        name: 'lang',
+        value: this.state.langDropDownValue
+      },
+      {
+        name: 'tags',
+        value: this.state.tagDropDownValue
+      }
     );
     return (
       <div className="aphorisms">

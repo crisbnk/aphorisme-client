@@ -22,7 +22,6 @@ function renderLang(lang) {
 
 export default ({...props}) =>
   <Container className="aphorisms-list">
-    {console.log(props.aphorisms)}
     {
       props.aphorisms.map((a, i) => (
         <Card key={i} className="aphorism-card">

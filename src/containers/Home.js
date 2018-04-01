@@ -93,15 +93,20 @@ export default class Home extends Component {
 
 
   renderAphorisms() {
+    let aphorisms = this.state.aphorisms;
+    aphorisms = aphorisms.filter(a => !this.state.langDropDownValue.length ?
+      a :
+      this.state.langDropDownValue.find(l => l === a.lang[0])
+    );
     return (
       <div className="aphorisms">
         {!this.state.isLoading &&
           (
             this.state.sidebarVisible ?
-            <AphorismsList aphorisms={this.state.aphorisms} />
+            <AphorismsList aphorisms={aphorisms} />
             :
             <QuoteContainer
-              aphorism={this.state.aphorisms[this.state.aphorismCounter]}
+              aphorism={aphorisms[this.state.aphorismCounter]}
               background={this.state.backgroundImages[this.state.imgCounter]}
             />
           )
@@ -137,7 +142,7 @@ export default class Home extends Component {
           >
             <Menu.Item name='world'>
               <Icon name='world' />
-              Language
+              {/* Language */}
               <Dropdown
                 name='lang'
                 onChange={this.handleDropDownChange}
@@ -155,7 +160,7 @@ export default class Home extends Component {
             </Menu.Item>
             <Menu.Item name='tag'>
               <Icon name='tag' />
-              Tags
+              {/* Tags */}
               <Dropdown
                 name='tag'
                 onChange={this.handleDropDownChange}

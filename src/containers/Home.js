@@ -30,7 +30,8 @@ export default class Home extends Component {
       backgroundImages: [],
       sidebarVisible: false,
       langDropDownValue: [],
-      tagDropDownValue: []
+      tagDropDownValue: [],
+      authorDropDownValue: []
     };
   }
 
@@ -94,10 +95,16 @@ export default class Home extends Component {
   filterList = (list, ...args) => {
     let secondList = [...list];
     const matchArray = args.filter(a => a.value.length);
-
     matchArray.forEach(filterArg => {
       secondList = secondList.filter(a => {
-        return filterArg.value.find(f => f === a[`${filterArg.name}`][0]);
+        return filterArg.value.find(f => {
+          return (
+            f === (
+              Array.isArray(a[`${filterArg.name}`])
+              ? a[`${filterArg.name}`][0] : a[`${filterArg.name}`]
+            )
+          )
+        });
       });
     });
 
@@ -114,6 +121,10 @@ export default class Home extends Component {
       {
         name: 'tags',
         value: this.state.tagDropDownValue
+      },
+      {
+        name: 'author',
+        value: this.state.authorDropDownValue
       }
     );
     return (
@@ -145,6 +156,13 @@ export default class Home extends Component {
     const sidebarVisible = this.state.sidebarVisible
     const arrowRotate = sidebarVisible ? 'rotate' : ''
     const dropDownValue = this.state.dropDownValue
+    const authOptions = this.state.aphorisms.map(a => {
+      return {
+        key: a.author,
+        value: a.author,
+        text: a.author
+      };
+    })
 
     return (
       <div className="Home">
@@ -174,7 +192,17 @@ export default class Home extends Component {
             </Menu.Item>
             <Menu.Item name='write'>
               <Icon name='write' />
-              Author
+              {/* Author */}
+              <Dropdown
+                name='author'
+                onChange={this.handleDropDownChange}
+                placeholder='Authors'
+                fluid
+                search
+                multiple
+                selection
+                options={authOptions}
+              />
             </Menu.Item>
             <Menu.Item name='tag'>
               <Icon name='tag' />
